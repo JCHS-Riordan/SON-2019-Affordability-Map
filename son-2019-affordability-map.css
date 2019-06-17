@@ -1,0 +1,34 @@
+@import url('https://code.highcharts.com/6.1.4/css/highcharts.css');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400');
+@import url('https://s3.amazonaws.com/jchs-app-source-data/JCHS-highchartrs/src/css/JCHS-highcharts.css');
+
+/* change chart colors here */
+.highcharts-color-3 { fill: #467b91; stroke: #467b91; color: #467b91; }
+.highcharts-color-2 { fill: #c8ded6; stroke: #c8ded6; color: #c8ded6; }
+.highcharts-color-1 { fill: #f6e599; stroke: #f6e599; color: #f6e599; }
+.highcharts-color-0 { fill: #c14d00; stroke: #c14d00; color: #c14d00; }
+/*.highcharts-color-4 { fill: #eab700; stroke: #eab700; color: #eab700; }*/
+/*.highcharts-color-5 { fill: #c14d00; stroke: #c14d00; color: #c14d00; }*/
+
+
+/* Drilldown CSS */
+.highcharts-area.zone-0,
+.highcharts-point.zone-0  { stroke: #467b91; fill: #467b91; }
+.highcharts-graph.zone-0 { stroke: #467b91; }
+.highcharts-area.zone-1,
+.highcharts-point.zone-1  { stroke: #c8ded6; fill: #c8ded6; }
+.highcharts-graph.zone-1 { stroke: #c8ded6; }
+.highcharts-area.zone-2,
+.highcharts-point.zone-2  { stroke: #f6e599; fill: #f6e599; }
+.highcharts-graph.zone-2 { stroke: #f6e599; }
+.highcharts-area.zone-3,
+.highcharts-point.zone-3  { stroke: #c14d00; fill: #c14d00; }
+.highcharts-graph.zone-3 { stroke: #c14d00; }
+
+/*Adding new style for subtitle*/
+.chart_subtitle {
+  text-align: center;
+  font-weight: 400;
+  color: #C14D00;
+  margin: 5px 5px;
+}
