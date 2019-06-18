@@ -11,6 +11,8 @@ var legend_title = 'Share Affordable<br/> (Percent)'
 
 var table_notes = 'Notes: Median incomes are estimated at the core-based statistical area (CBSA) level. Recently sold homes are defined as homes with owners that moved within the 12 months prior to the survey date. Monthly payments assume a 3.5% downpayment and property taxes of 1.15%, property insurance of 0.35%, and mortgage insurance of 0.85%. Affordable payments are defined as requiring less than 31% of monthly household income. Only CBSAs with at least 30 home sales in the past year are shown. <br/> Source: JCHS tabulations of US Census Bureau, 2017 American Community Survey 1-Year Estimates, and Freddie Mac, PMMS.'
 
+var hhd_type = 'All Households'
+
 var export_filename = "Homeownership Affordability - Harvard JCHS - State of the Nation's Housing 2019"
 
 var default_selection = 2
@@ -28,18 +30,18 @@ $(document).ready(function() {
   $.get(H.JCHS.requestURL(sheetID, range), function(obj) {
     categories = obj.values[0]
     ref_data = obj.values.slice(1)
-
+    
     //create the title, notes, and search box
     $('#chart_title').html(chart_title)
     $('#chart_subtitle').html(chart_subtitle)
     $('#table_notes').html(table_notes)
-
+    
     H.JCHS.createSearchBox(ref_data, searchCallback, '', 1, 'search', 'Need help finding a metro? Search here...') //5th argument (the 1) tells the search box to list column index 1 from ref_data, instead of the default 0 (in this case metro name, not GEOID)
 
     //create the chart
-    createChart()
+    createChart() 
 
-  })
+  }) 
 }) //end document.ready
 
 
@@ -74,7 +76,7 @@ function createChart() {
     colorAxis: {
       dataClasses: [
         { to: 25 },
-        { from: 25, to: 50 },
+        { from: 25, to: 50 }, 
         { from: 50, to: 75 },
         { from: 75 }
       ]
@@ -98,16 +100,22 @@ function createChart() {
       filename: export_filename,
       JCHS: { sheetID: sheetID },
       chartOptions: {
-        title: { text: chart_title},
+        title: { text: chart_title + ' - <br/>' + hhd_type},
       },
+      buttons: {
+        contextButton: {
+          /*menuItems: ['viewFullDataset']*/
+        menuItems: ['viewFullDataset', 'separator', 'downloadPDF', 'separator', 'downloadPNG', 'downloadJPEG'] 
+        } //end contextButtons
+      } //end buttons
     }, //end exporting
-
+    
     tooltip: {
       formatter: function() {
         var point = this.point
         var series = this.series
-        var user_selection = $('#user_input :checked').val()
-
+        var user_selection = $('#user_input :checked').val()   
+        
         var tooltip_text = ''
         tooltip_text +=  '<b>' +  point.name + '</b>'
 
@@ -144,7 +152,7 @@ function createChart() {
     'container',
     chart_options
   ) //end chart
-
+  
 } //end createChart()
 
 /*~~~~~~~~~~~~~~ User interaction ~~~~~~~~~~~~~~~~~~~*/
@@ -154,8 +162,18 @@ function initUserInteraction () {
     var new_data = ref_data.map(function (x) {
       return [x[0], x[new_col]]
     })
-    chart.series[0].update({name: categories[new_col]})
+    chart.series[0].update({name: categories[new_col]})   
     chart.series[0].setData(new_data)
+    if($('#user_input :checked').val() == '2'){
+      hhd_type = 'All Households'
+    } else if ($('#user_input :checked').val() == '3') {
+      hhd_type = 'Homeowner Households'
+    } else {
+      hhd_type = 'Renter Households'
+    }
+    chart.exporting.update({chartOptions: {
+      title: { text: chart_title + ' - <br/>' + hhd_type},       
+    }})
   })
 }
 
