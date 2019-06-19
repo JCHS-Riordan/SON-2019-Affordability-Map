@@ -30,18 +30,18 @@ $(document).ready(function() {
   $.get(H.JCHS.requestURL(sheetID, range), function(obj) {
     categories = obj.values[0]
     ref_data = obj.values.slice(1)
-    
+
     //create the title, notes, and search box
-    $('#chart_title').html(chart_title)
+    //$('#chart_title').html(chart_title) //Disabling for use on website, where the title is in the page, making this title redundant (but not the subtitle, hence keeping that)
     $('#chart_subtitle').html(chart_subtitle)
     $('#table_notes').html(table_notes)
-    
+
     H.JCHS.createSearchBox(ref_data, searchCallback, '', 1, 'search', 'Need help finding a metro? Search here...') //5th argument (the 1) tells the search box to list column index 1 from ref_data, instead of the default 0 (in this case metro name, not GEOID)
 
     //create the chart
-    createChart() 
+    createChart()
 
-  }) 
+  })
 }) //end document.ready
 
 
@@ -76,7 +76,7 @@ function createChart() {
     colorAxis: {
       dataClasses: [
         { to: 25 },
-        { from: 25, to: 50 }, 
+        { from: 25, to: 50 },
         { from: 50, to: 75 },
         { from: 75 }
       ]
@@ -100,22 +100,29 @@ function createChart() {
       filename: export_filename,
       JCHS: { sheetID: sheetID },
       chartOptions: {
+        chart: {
+          marginBottom: 50 //may have to adjust to fit all of the notes
+        },
         title: { text: chart_title + ' - <br/>' + hhd_type},
+        //subtitle: { text: table_notes},
+        legend: {
+          y: -42, //may have to adjust to fit all of the notes
+          x: -5
+        }
       },
       buttons: {
         contextButton: {
-          /*menuItems: ['viewFullDataset']*/
-        menuItems: ['viewFullDataset', 'separator', 'downloadPDF', 'separator', 'downloadPNG', 'downloadJPEG'] 
+        menuItems: ['viewFullDataset', 'separator', 'downloadPDF', 'separator', 'downloadPNG', 'downloadJPEG']
         } //end contextButtons
       } //end buttons
     }, //end exporting
-    
+
     tooltip: {
       formatter: function() {
         var point = this.point
         var series = this.series
-        var user_selection = $('#user_input :checked').val()   
-        
+        var user_selection = $('#user_input :checked').val()
+
         var tooltip_text = ''
         tooltip_text +=  '<b>' +  point.name + '</b>'
 
@@ -152,7 +159,7 @@ function createChart() {
     'container',
     chart_options
   ) //end chart
-  
+
 } //end createChart()
 
 /*~~~~~~~~~~~~~~ User interaction ~~~~~~~~~~~~~~~~~~~*/
@@ -162,8 +169,9 @@ function initUserInteraction () {
     var new_data = ref_data.map(function (x) {
       return [x[0], x[new_col]]
     })
-    chart.series[0].update({name: categories[new_col]})   
+    chart.series[0].update({name: categories[new_col]})
     chart.series[0].setData(new_data)
+    //Need an if/elseif/else loop to update the name of the hhd_type
     if($('#user_input :checked').val() == '2'){
       hhd_type = 'All Households'
     } else if ($('#user_input :checked').val() == '3') {
@@ -172,7 +180,7 @@ function initUserInteraction () {
       hhd_type = 'Renter Households'
     }
     chart.exporting.update({chartOptions: {
-      title: { text: chart_title + ' - <br/>' + hhd_type},       
+      title: { text: chart_title + ' - <br/>' + hhd_type},
     }})
   })
 }
