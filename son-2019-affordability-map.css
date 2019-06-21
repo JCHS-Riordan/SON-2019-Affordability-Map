@@ -32,3 +32,9 @@
   color: #C14D00;
   margin: 5px 5px;
 }
+
+/*Formatting the notes in the exported images*/
+.highcharts-subtitle {
+  font-size: 6px;
+  margin: 5px 5px;
+}

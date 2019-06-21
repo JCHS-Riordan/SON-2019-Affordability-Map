@@ -3,7 +3,7 @@ var cbsas = Highcharts.geojson(Highcharts.maps['countries/us/cbsa'])
 var states = Highcharts.geojson(Highcharts.maps['countries/us/states'])
 
 var sheetID = '1BXVPZXA_R1ejffXIgnOTJrGbK5VbgZERCB0maL1hdNE'
-var range = 'Sheet3!A:M'
+var range = 'Sheet3!A:I'
 
 var chart_title = 'Homeownership Affordability Varies Across the Country'
 var chart_subtitle = 'Recently sold homes with monthly payments affordable <br/>to the following median-income households:'
@@ -101,12 +101,13 @@ function createChart() {
       JCHS: { sheetID: sheetID },
       chartOptions: {
         chart: {
-          marginBottom: 50 //may have to adjust to fit all of the notes
+          marginBottom: 75 //may have to adjust to fit all of the notes
         },
         title: { text: chart_title + ' - <br/>' + hhd_type},
-        //subtitle: { text: table_notes},
+        subtitle: { text: table_notes,
+                  y: -35},
         legend: {
-          y: -42, //may have to adjust to fit all of the notes
+          y: -60, //may have to adjust to fit all of the notes
           x: -5
         }
       },
