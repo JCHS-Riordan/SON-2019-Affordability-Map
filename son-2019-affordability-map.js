@@ -9,7 +9,9 @@ var chart_title = 'Homeownership Affordability Varies Across the Country'
 var chart_subtitle = 'Recently sold homes with monthly payments affordable <br/>to the following median-income households:'
 var legend_title = 'Share Affordable<br/> (Percent)'
 
-var table_notes = 'Notes: Median incomes are estimated at the core-based statistical area (CBSA) level. Recently sold homes are defined as homes with owners that moved within the 12 months prior to the survey date. Monthly payments assume a 3.5% downpayment and property taxes of 1.15%, property insurance of 0.35%, and mortgage insurance of 0.85%. Affordable payments are defined as requiring less than 31% of monthly household income. Only CBSAs with at least 30 home sales in the past year are shown. <br/> Source: JCHS tabulations of US Census Bureau, 2017 American Community Survey 1-Year Estimates, and Freddie Mac, PMMS.'
+var table_notes = 'Notes: Median incomes are estimated at the core-based statistical area (CBSA) level. Recently sold homes are defined as homes with owners that moved within the 12 months prior to the survey date. Monthly payments assume a 3.5% downpayment and property taxes of 1.15%, property insurance of 0.35%, and mortgage insurance of 0.85%. Affordable payments are defined as requiring less than 31% of monthly household income. Only CBSAs with at least 30 home sales in the past year are shown. <br/> Source: <a href="https://www.jchs.harvard.edu/" target="_blank">Harvard Joint Center for Housing Studies</a> tabulations of US Census Bureau, 2017 American Community Survey 1-Year Estimates, and Freddie Mac, PMMS.'
+//Hyperlink doesn't work in the exported image and the full JCHS name makes the source two lines long, so reverting to 'JCHS' in the source here for the export
+var export_notes = 'Notes: Median incomes are estimated at the core-based statistical area (CBSA) level. Recently sold homes are defined as homes with owners that moved within the 12 months prior to the survey date. Monthly payments assume a 3.5% downpayment and property taxes of 1.15%, property insurance of 0.35%, and mortgage insurance of 0.85%. Affordable payments are defined as requiring less than 31% of monthly household income. Only CBSAs with at least 30 home sales in the past year are shown. <br/> Source: JCHS tabulations of US Census Bureau, 2017 American Community Survey 1-Year Estimates, and Freddie Mac, PMMS.'
 
 var hhd_type = 'All Households'
 
@@ -104,7 +106,7 @@ function createChart() {
           marginBottom: 75 //may have to adjust to fit all of the notes
         },
         title: { text: chart_title + ' - <br/>' + hhd_type},
-        subtitle: { text: table_notes,
+        subtitle: { text: export_notes,
                   y: -35},
         legend: {
           y: -60, //may have to adjust to fit all of the notes
